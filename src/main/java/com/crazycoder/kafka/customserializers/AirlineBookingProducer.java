@@ -41,6 +41,6 @@ public class AirlineBookingProducer {
 
     private static String generateBookingRequest(int bookingId) {
         // Simulate a booking request
-        return "Booking ID: " + bookingId + ", Flight: ABC123, Passenger: John Doe";
+        return "Booking ID: " + bookingId + ", Flight: AirCanada2417, Passenger: Dede jayo";
     }
 }
