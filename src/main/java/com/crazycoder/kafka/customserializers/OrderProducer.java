@@ -20,7 +20,7 @@ public class OrderProducer {
         props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
         props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, OrderSerializer.class.getName());
         props.setProperty(ProducerConfig.ACKS_CONFIG, "all");
-        props.setProperty(ProducerConfig.BUFFER_MEMORY_CONFIG,"34443444");
+      //  props.setProperty(ProducerConfig.BUFFER_MEMORY_CONFIG,"34443444");
         props.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "gzip");
         props.setProperty(ProducerConfig.RETRIES_CONFIG, "1");
         props.setProperty(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, "400");
@@ -35,7 +35,7 @@ public class OrderProducer {
         KafkaProducer<String, Order> producer = new KafkaProducer<>(props);
         Order order = new Order();
         order.setCustomerName("John");
-        order.setProduct("Iphone 13 PRo");
+        order.setProduct("Iphone 14 PRo");
         order.setQuantity(1);
         ProducerRecord<String, Order> record = new ProducerRecord<>("OrderPartitionedTopic", order.getCustomerName(), order);
 
