@@ -15,6 +15,7 @@ public class AirlineBookingProducer {
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("max.in.flight.requests.per.connection", "1"); // Set to 1 for single in-flight request for simplicity
+        props.put("acks", "0");
 
         try (Producer<String, String> producer = new KafkaProducer<>(props)) {
             // Simulate booking requests
@@ -41,6 +42,6 @@ public class AirlineBookingProducer {
 
     private static String generateBookingRequest(int bookingId) {
         // Simulate a booking request
-        return "Booking ID: " + bookingId + ", Flight: AirCanada2417, Passenger: Dede jayo";
+        return "Booking ID: " + bookingId + ", Flight: AirIndia, Passenger: Numaan";
     }
 }
