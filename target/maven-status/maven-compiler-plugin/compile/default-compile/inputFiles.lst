@@ -1,7 +1,0 @@
-/Users/rinkibansal/IdeaProjects/KafkaProducerProject/src/main/java/com/crazycoder/kafka/customserializers/Order.java
-/Users/rinkibansal/IdeaProjects/KafkaProducerProject/src/main/java/com/crazycoder/kafka/customserializers/OrderProducer.java
-/Users/rinkibansal/IdeaProjects/KafkaProducerProject/src/main/java/com/crazycoder/kafka/avro/Order.java
-/Users/rinkibansal/IdeaProjects/KafkaProducerProject/src/main/java/com/crazycoder/kafka/OrderProducer.java
-/Users/rinkibansal/IdeaProjects/KafkaProducerProject/src/main/java/com/crazycoder/kafka/OrderCallback.java
-/Users/rinkibansal/IdeaProjects/KafkaProducerProject/src/main/java/com/crazycoder/kafka/App.java
-/Users/rinkibansal/IdeaProjects/KafkaProducerProject/src/main/java/com/crazycoder/kafka/customserializers/OrderSerializer.java
