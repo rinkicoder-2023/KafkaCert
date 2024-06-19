@@ -39,7 +39,6 @@ public class OrderProducer {
         order.setQuantity(1);
         ProducerRecord<String, Order> record = new ProducerRecord<>("OrderPartitionedTopic", order.getCustomerName(), order);
 
-        //Method 1 : Fire and Forget
         try {
             producer.send(record);
             System.out.println("Message has been successfully send");
