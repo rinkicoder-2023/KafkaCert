@@ -1,0 +1,9 @@
+com/crazycoder/kafka/avro/Order.class
+com/crazycoder/kafka/avro/Order$1.class
+com/crazycoder/kafka/customserializers/Order.class
+com/crazycoder/kafka/customserializers/OrderProducer.class
+com/crazycoder/kafka/customserializers/OrderSerializer.class
+com/crazycoder/kafka/avro/Order$Builder.class
+com/crazycoder/kafka/App.class
+com/crazycoder/kafka/OrderCallback.class
+com/crazycoder/kafka/OrderProducer.class
