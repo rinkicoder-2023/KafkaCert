@@ -16,6 +16,8 @@ public class AirlineBookingProducer {
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("max.in.flight.requests.per.connection", "1"); // Set to 1 for single in-flight request for simplicity
         props.put("acks", "0");
+        props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 30000); //30 sec
+        props.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, 120000); //2 min
 
         try (Producer<String, String> producer = new KafkaProducer<>(props)) {
             // Simulate booking requests
