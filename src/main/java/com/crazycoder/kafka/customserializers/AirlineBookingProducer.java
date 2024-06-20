@@ -16,9 +16,12 @@ public class AirlineBookingProducer {
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("max.in.flight.requests.per.connection", "1"); // Set to 1 for single in-flight request for simplicity
         props.put("acks", "0");
+        //props.put(ProducerConfig.ACKS_CONFIG, "all"); // broker settng min.insync.replicas=2, the write is successful as there are still 2 in-sync replicas acknowledging the write.
         props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 30000); //30 sec
         props.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, 120000); //2 min
         props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "gzip"); // others are lz4, snappy, zstd
+        props.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384); //16kb - accumulated size of records for a partition reaches 16 KB, the batch will be sent immediately.
+        props.put(ProducerConfig.LINGER_MS_CONFIG, 0); // 10ms - producer will wait up to 10 ms for more records to be added to the batch before sending it, even if the batch is not full.
 
         try (Producer<String, String> producer = new KafkaProducer<>(props)) {
             // Simulate booking requests
@@ -45,6 +48,6 @@ public class AirlineBookingProducer {
 
     private static String generateBookingRequest(int bookingId) {
         // Simulate a booking request
-        return "Booking ID: " + bookingId + ", Flight: AirIndia, Passenger: Numaan";
+        return "Booking ID: " + bookingId + ", Flight: Swiss, Passenger: Varun";
     }
 }
