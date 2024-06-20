@@ -18,6 +18,7 @@ public class AirlineBookingProducer {
         props.put("acks", "0");
         props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 30000); //30 sec
         props.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, 120000); //2 min
+        props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "gzip"); // others are lz4, snappy, zstd
 
         try (Producer<String, String> producer = new KafkaProducer<>(props)) {
             // Simulate booking requests
