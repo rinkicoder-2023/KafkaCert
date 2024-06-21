@@ -25,6 +25,7 @@ public class AirlineBookingProducer {
         props.put(ProducerConfig.RETRIES_CONFIG, 3); // retry attempts
         props.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, 100); // 100ms backoff between retries
         props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 67108864);  // 64 MB buffer memory
+        props.put(ProducerConfig.MAX_BLOCK_MS_CONFIG, 60000);  // 60seconds wait for space to become available
 
         try (Producer<String, String> producer = new KafkaProducer<>(props)) {
             // Simulate booking requests
