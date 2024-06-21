@@ -15,7 +15,7 @@ public class AirlineBookingProducer {
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("max.in.flight.requests.per.connection", "1"); // Set to 1 for single in-flight request for simplicity
-        props.put("acks", "0");
+        props.put("acks", "1");
         //props.put(ProducerConfig.ACKS_CONFIG, "all"); // broker settng min.insync.replicas=2, the write is successful as there are still 2 in-sync replicas acknowledging the write.
         props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 30000); //30 sec
         props.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, 120000); //2 min
@@ -26,6 +26,7 @@ public class AirlineBookingProducer {
         props.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, 100); // 100ms backoff between retries
         props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 67108864);  // 64 MB buffer memory
         props.put(ProducerConfig.MAX_BLOCK_MS_CONFIG, 60000);  // 60seconds wait for space to become available
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, "my-first-producer");  // 60seconds wait for space to become available
 
         try (Producer<String, String> producer = new KafkaProducer<>(props)) {
             // Simulate booking requests
