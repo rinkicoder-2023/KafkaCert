@@ -24,6 +24,7 @@ public class AirlineBookingProducer {
         props.put(ProducerConfig.LINGER_MS_CONFIG, 0); // 10ms - producer will wait up to 10 ms for more records to be added to the batch before sending it, even if the batch is not full.
         props.put(ProducerConfig.RETRIES_CONFIG, 3); // retry attempts
         props.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, 100); // 100ms backoff between retries
+        props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 67108864);  // 64 MB buffer memory
 
         try (Producer<String, String> producer = new KafkaProducer<>(props)) {
             // Simulate booking requests
