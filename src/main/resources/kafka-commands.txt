@@ -1,0 +1,19 @@
+./kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group booking-consumer-group
+
+Consumer group 'booking-consumer-group' has no active members.
+
+GROUP                  TOPIC            PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+booking-consumer-group booking_topic    0          0               0               0               -               -               -
+booking-consumer-group airline-bookings 0          100             100             0               -               -               -
+
+###################
+./kafka-topics.sh --bootstrap-server localhost:9092 --list
+
+OrderPartitionedTopic
+__consumer_offsets
+airline-bookings
+booking_topic
+flow-post
+###################
+
+
