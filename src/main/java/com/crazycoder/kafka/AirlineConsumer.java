@@ -4,6 +4,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.TopicPartition;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -12,7 +13,6 @@ import java.util.Properties;
 public class AirlineConsumer {
 
     public static void main(String[] args) {
-        // Set up properties
         Properties props = new Properties();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "booking-consumer-group");
@@ -24,6 +24,12 @@ public class AirlineConsumer {
 
         // Subscribe to the topic
         consumer.subscribe(Collections.singletonList("airline-bookings"));
+
+        // Specify the topic and partition you want to read from
+        int partition = 0;
+        TopicPartition topicPartition = new TopicPartition("airline-bookings", partition);
+        // Assign the specified partition to the consumer
+        consumer.assign(Collections.singletonList(topicPartition));
 
         // Poll for new data
         try {
