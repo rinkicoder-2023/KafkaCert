@@ -19,6 +19,7 @@ public class AirlineConsumer {
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
         // Create the consumer
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
 
@@ -29,7 +30,7 @@ public class AirlineConsumer {
         int partition = 0;
         TopicPartition topicPartition = new TopicPartition("airline-bookings", partition);
         // Assign the specified partition to the consumer
-        consumer.assign(Collections.si src/main/java/com/crazycoder/kafka/AirlineConsumer.javangletonList(topicPartition));
+        consumer.assign(Collections.singletonList(topicPartition));
 
         // Poll for new data
         try {
