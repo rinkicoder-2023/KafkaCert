@@ -1,11 +1,17 @@
 package com.crazycoder.kafka;
 
+import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.streams.KafkaStreams;
+import org.apache.kafka.streams.StreamsBuilder;
+import org.apache.kafka.streams.StreamsConfig;
+import org.apache.kafka.streams.kstream.KStream;
+import org.apache.kafka.streams.kstream.Produced;
+
 import java.util.Properties;
 
 public class FlightBookingStreamsApp {
 
     public static void main(String[] args) {
-        // Set the properties for the Kafka Streams application
         Properties props = new Properties();
         props.put(StreamsConfig.APPLICATION_ID_CONFIG, "flight-booking-streams");
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
@@ -30,10 +36,7 @@ public class FlightBookingStreamsApp {
         Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
     }
 
-    // Simple check to determine if the booking is international
     private static boolean isInternational(String booking) {
-        // Assume the booking string contains a country code for simplicity
-        // In a real application, parse the booking JSON or object to extract the relevant field
         return booking.contains("INTERNATIONAL");
     }
 }
