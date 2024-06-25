@@ -24,3 +24,27 @@ kafka-topics.sh --create --topic flight-bookings --bootstrap-server localhost:90
 
 # Create the domestic-bookings topic
 src/main/resources/kafka-commands.txt
+
+
+./kafka-console-producer.sh --broker-list localhost:9092 --topic flight-bookings
+>{"bookingId": "1", "type": "INTERNATIONAL", "details": "Flight from New York to London"}
+>{"bookingId": "2", "type": "DOMESTIC", "details": "Flight from Los Angeles to San Francisco"}>
+>
+------------------------------------------------
+                                                                                                                                                     rinkibansal@Rinkis-MBP bin % kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic flight-bookings --from-beginning
+ ./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic flight-bookings --from-beginning
+
+{"bookingId": "1", "type": "INTERNATIONAL", "details": "Flight from New York to London"}
+>{"bookingId": "2", "type": "DOMESTIC", "details": "Flight from Los Angeles to San Francisco"}
+
+------------------------------------------------
+./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic international-bookings --from-beginning
+
+{"bookingId": "1", "type": "INTERNATIONAL", "details": "Flight from New York to London"}
+------------------------------------------------
+ src/main/resources/kafka-commands.txt
+./kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic domestic-bookings --from-beginning
+
+>{"bookingId": "2", "type": "DOMESTIC", "details": "Flight from Los Angeles to San Francisco"}
+
+-------------------------------------
