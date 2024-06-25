@@ -16,4 +16,11 @@ booking_topic
 flow-post
 ###################
 
+# Create the flight-bookings topic
+kafka-topics.sh --create --topic flight-bookings --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
 
+# Create the international-bookings topic
+./kafka-topics.sh --create --topic international-bookings --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+
+# Create the domestic-bookings topic
+src/main/resources/kafka-commands.txt
