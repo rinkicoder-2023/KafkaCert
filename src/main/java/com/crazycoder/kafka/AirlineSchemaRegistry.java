@@ -18,6 +18,28 @@ public class AirlineSchemaRegistry {
     private static final String TOPIC_NAME = "example-topic";
 
     public static void main(String[] args) {
+        //JSON Message
+        /*{
+            "orderId": "12345",
+                "productId": "67890",
+                "quantity": 2,
+                "price": 19.99
+        }*/
+
+        //Avro
+      /*  {
+            "type": "record",
+                "name": "Order",
+                "fields": [
+            {"name": "orderId", "type": "string"},
+            {"name": "productId", "type": "string"},
+            {"name": "quantity", "type": "int"},
+            {"name": "price", "type": "float"}
+  ]
+        }
+*/
+
+
         Properties props = new Properties();
         props.put("bootstrap.servers", "localhost:9092");
         props.put("key.deserializer", StringDeserializer.class.getName());
