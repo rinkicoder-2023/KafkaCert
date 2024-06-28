@@ -3,12 +3,17 @@ package com.crazycoder.kafka;
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;
 import io.confluent.kafka.serializers.KafkaAvroDeserializer;
 import org.apache.avro.Schema;
+import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
@@ -17,7 +22,7 @@ public class AirlineSchemaRegistry {
     private static final String SCHEMA_REGISTRY_URL = "http://schema-registry-host:port";
     private static final String TOPIC_NAME = "example-topic";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         //JSON Message
         /*{
             "orderId": "12345",
@@ -38,15 +43,37 @@ public class AirlineSchemaRegistry {
   ]
         }
 */
-
-
+        //Producing Avro to Kafka:
         Properties props = new Properties();
         props.put("bootstrap.servers", "localhost:9092");
-        props.put("key.deserializer", StringDeserializer.class.getName());
-        props.put("value.deserializer", KafkaAvroDeserializer.class.getName());
-        props.put("group.id", "test-consumer-group");
-        props.put("schema.registry.url", SCHEMA_REGISTRY_URL);
-        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        props.put("value.serializer", "io.confluent.kafka.serializers.KafkaAvroSerializer");
+        props.put("schema.registry.url", "http://localhost:8081");
+
+        KafkaProducer<String, GenericRecord> producer = new KafkaProducer<>(props);
+
+        String topic = "orders";
+        Schema.Parser parser = new Schema.Parser();
+        Schema schema = parser.parse(new File("Order.avsc"));
+
+        GenericRecord order = new GenericData.Record(schema);
+        order.put("orderId", "12345");
+        order.put("productId", "67890");
+        order.put("quantity", 2);
+        order.put("price", 19.99f);
+
+        ProducerRecord<String, GenericRecord> record = new ProducerRecord<>(topic, "12345", order);
+
+        producer.send(record);
+        producer.close();
+
+        Properties properties = new Properties();
+        properties.put("bootstrap.servers", "localhost:9092");
+        properties.put("key.deserializer", StringDeserializer.class.getName());
+        properties.put("value.deserializer", KafkaAvroDeserializer.class.getName());
+        properties.put("group.id", "test-consumer-group");
+        properties.put("schema.registry.url", SCHEMA_REGISTRY_URL);
+        properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
         KafkaConsumer<String, GenericRecord> consumer = new KafkaConsumer<>(props);
 
