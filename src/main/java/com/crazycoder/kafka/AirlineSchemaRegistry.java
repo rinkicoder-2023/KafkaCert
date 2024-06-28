@@ -43,7 +43,22 @@ public class AirlineSchemaRegistry {
   ]
         }
 */
-        //Producing Avro to Kafka:
+       // Producing JSON to Kafka :
+
+        Properties jsonprops = new Properties();
+        jsonprops.put("bootstrap.servers", "localhost:9092");
+        jsonprops.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+        jsonprops.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
+
+        KafkaProducer<String, String> kafkaproducer = new KafkaProducer<>(jsonprops);
+
+        String jsonMessage = "{ \"orderId\": \"12345\", \"productId\": \"67890\", \"quantity\": 2, \"price\": 19.99 }";
+        ProducerRecord<String, String> record = new ProducerRecord<>("orders", "12345", jsonMessage);
+
+        kafkaproducer.send(record);
+        kafkaproducer.close();
+
+        // Producing Avro to Kafka :
         Properties props = new Properties();
         props.put("bootstrap.servers", "localhost:9092");
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
