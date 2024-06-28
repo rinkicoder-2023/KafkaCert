@@ -53,9 +53,9 @@ public class AirlineSchemaRegistry {
         KafkaProducer<String, String> kafkaproducer = new KafkaProducer<>(jsonprops);
 
         String jsonMessage = "{ \"orderId\": \"12345\", \"productId\": \"67890\", \"quantity\": 2, \"price\": 19.99 }";
-        ProducerRecord<String, String> record = new ProducerRecord<>("orders", "12345", jsonMessage);
+        ProducerRecord<String, String> producerRecord = new ProducerRecord<>("orders", "12345", jsonMessage);
 
-        kafkaproducer.send(record);
+        kafkaproducer.send(producerRecord);
         kafkaproducer.close();
 
         // Producing Avro to Kafka :
@@ -77,9 +77,9 @@ public class AirlineSchemaRegistry {
         order.put("quantity", 2);
         order.put("price", 19.99f);
 
-        ProducerRecord<String, GenericRecord> record = new ProducerRecord<>(topic, "12345", order);
+        ProducerRecord<String, GenericRecord> genericRecord = new ProducerRecord<>(topic, "12345", order);
 
-        producer.send(record);
+        producer.send(genericRecord);
         producer.close();
 
         Properties properties = new Properties();
@@ -101,7 +101,7 @@ public class AirlineSchemaRegistry {
                     int schemaId = (int) record.headers().lastHeader("schemaId").value()[0];
 
                     // Retrieve schema from Schema Registry
-                    Schema schema = new SchemaRegistryClient(SCHEMA_REGISTRY_URL).getById(schemaId);
+                   // Schema schema = new SchemaRegistryClient(SCHEMA_REGISTRY_URL).getById(schemaId);
 
                     // Deserialize record using retrieved schema
                     GenericRecord data = record.value();
